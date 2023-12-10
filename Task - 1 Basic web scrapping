@@ -1,0 +1,35 @@
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_quotes(url):
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        quotes = soup.find_all('span', class_='text')
+
+        for index, quote in enumerate(quotes, start=1):
+            print(f"{index}. {quote.get_text()}")
+
+    else:
+        print(f"Failed to retrieve the page. Status code: {response.status_code}")
+
+# Specify the URL to scrape
+url_to_scrape = "http://quotes.toscrape.com"
+
+# Call the web scraping function
+scrape_quotes(url_to_scrape)
+
+OUTPUT:
+1. “The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”
+2. “It is our choices, Harry, that show what we truly are, far more than our abilities.”
+3. “There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”
+4. “The person, be it gentleman or lady, who has not pleasure in a good novel, must be intolerably stupid.”
+5. “Imperfection is beauty, madness is genius and it's better to be absolutely ridiculous than absolutely boring.”
+6. “Try not to become a man of success. Rather become a man of value.”
+7. “It is better to be hated for what you are than to be loved for what you are not.”
+8. “I have not failed. I've just found 10,000 ways that won't work.”
+9. “A woman is like a tea bag; you never know how strong it is until it's in hot water.”
+10. “A day without sunshine is like, you know, night.”
+​
+
